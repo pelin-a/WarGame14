@@ -1,7 +1,6 @@
+package Game;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
 // Represents the Game of War
 public class Game {
     private User player1; // First player
@@ -51,11 +50,14 @@ public class Game {
             Card card2 = player2.playCard();
             System.out.println(player1.getName() + " plays " + card1);
             System.out.println(player2.getName() + " plays " + card2);
-
             if (card1.getRank() > card2.getRank()) {
-                player1.winCards(card1, card2); // Player 1 wins the round
-            } else if (card1.getValue() < card2.getValue()) {
-                player2.winCards(card1, card2); // Player 2 wins the round
+            	
+                player1.addCardToHand(card1); // Player 1 wins the round
+                player1.addCardToHand(card2);
+               
+            } else if (card1.getRank() < card2.getRank()) {
+                player2.addCardToHand(card1);
+                player2.addCardToHand(card2);// Player 2 wins the round
             } else {
                 handleWar(card1, card2); // Handle war scenario
             }
@@ -74,7 +76,7 @@ public class Game {
                 warPile.add(player1.playCard());
                 warPile.add(player2.playCard());
 
-                if (!player1.hasCards() || !player2.hasCards()) {
+                if (!player1.hasDeck() || !player2.hasDeck()) {
                     break;
                 }
 
@@ -84,10 +86,10 @@ public class Game {
                 warPile.add(warCard2);
 
                 if (warCard1.getRank() > warCard2.getRank()) {
-                    player1.winCards(warPile);
+                    player1.addCardsToHand(warPile);
                     break;
-                } else if (warCard1.getValue() < warCard2.getValue()) {
-                    player2.winCards(warPile);
+                } else if (warCard1.getRank() < warCard2.getRank()) {
+                    player2.addCardsToHand(warPile);
                     break;
                 }
             } else {
@@ -98,17 +100,17 @@ public class Game {
 
     // Checks if the game is over
     private boolean checkGameOver() {
-        if (!player1.hasCards()) {
+        if (!player1.hasDeck()) {
             System.out.println(player2.getName() + " wins the game!");
             return true;
-        } else if (!player2.hasCards()) {
+        } else if (!player2.hasDeck()) {
             System.out.println(player1.getName() + " wins the game!");
             return true;
         }
         return false;
     }
 
-    // Saves the game state (placeholder)
+  /*  // Saves the game state (placeholder)
     public void saveGame() {
         // Logic to save the game state
     }
@@ -116,7 +118,7 @@ public class Game {
     // Loads a previously saved game state (placeholder)
     public void loadGame() {
         // Logic to load the game state
-    }
+    }*/
 
     // Displays the current status of the game
     public void displayStatus() {

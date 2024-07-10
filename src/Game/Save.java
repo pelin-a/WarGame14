@@ -1,17 +1,19 @@
 
 package Game;  // Declares the package name.
 import java.util.List;
-
+import java.util.ArrayList;
 import java.io.*;  // Imports classes from the java.io package for handling input and output operations.
  
 public class Save extends Game {  // Declares the Save class which extends the Game class.
 
-    private User[] users;  // Declares a private array of User objects to store the users.
-    private Deck deck;  // Declares a private Deck object to store the deck of cards.
+    private ArrayList<User> users= new ArrayList<User>();  // Declares a private array of User objects to store the users.
+    private Deck deck;
+    	// Declares a private Deck object to store the deck of cards.
  
-    public Save(User[] users, Deck deck) {  // Constructor for the Save class, initializing users and deck.
-
-        this.users = users;  // Assigns the input users array to the class's users variable.
+    public Save(User player1, User player2, Deck deck) {  // Constructor for the Save class, initializing users and deck.
+    	super(player1,player2);
+    	users.add(player1);
+    	users.add(player2);
         this.deck = deck;  // Assigns the input deck to the class's deck variable.
 
     }
@@ -24,9 +26,11 @@ public class Save extends Game {  // Declares the Save class which extends the G
 
                 writer.write(user.getName());  // Writes the user's name to the file.
 
-                writer.newLine();  // Adds a new line after the user's name.
+                writer.newLine(); 
+               
+                // Adds a new line after the user's name.
 
-                for (Card card : user.getHand()) {  // Loops through each card in the user's hand.
+                for (Card card : user.getHand().getCardsAsArray()) {  // Loops through each card in the user's hand.
 
                     writer.write(card.getSuit() + "," + card.getValue());  // Writes the card's suit and value separated by a comma.
 
@@ -66,12 +70,12 @@ public class Save extends Game {  // Declares the Save class which extends the G
 
             int userIndex = 0;  
 
- User user = null; // Initializes a variable to hold the current user being processed, starting with null.
+            User user = null; // Initializes a variable to hold the current user being processed, starting with null.
  
             while ((line = reader.readLine()) != null) { // Reads lines from the reader until there are no more lines.
                 if (line.equals("END")) { // Checks if the current line indicates the end of a user's section.
                     if (user != null) { // Checks if a user has been created.
-                        users[userIndex++] = user; // Adds the user to the users array and raises the index.
+                        users.add(user); // Adds the user to the users array.
                         user = null; // Resets the previous user for a clean variable for the next user.
                     }
                 } else if (line.contains(",")) { // Check if the line contains a comma, indicating card info.

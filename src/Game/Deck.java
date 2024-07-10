@@ -1,5 +1,4 @@
 package Game;
-import java.util.Collections;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +73,9 @@ public class Deck {
 	public void setDeck(List<Card> deck) {
 		this.deck = deck;
 	}
-	
+	public Card[] getCardsAsArray() {
+		return deck.toArray(new Card[deck.size()]);
+	}
 	
 	
 	
