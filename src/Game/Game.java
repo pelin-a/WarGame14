@@ -18,13 +18,14 @@ public class Game {
     }
 
     // Initializes the game by shuffling and distributing cards
-    private void initializeGame() {
+    public void initializeGame() {
+    	deck.initializeFull();
         deck.shuffle(); // Shuffle the deck
         dealCards(); // Distribute cards to players
     }
 
     // Deals cards evenly between the two players
-    private void dealCards() {
+    public void dealCards() {
         List<Card> cards = deck.getDeck();
         for (int i = 0; i < cards.size(); i++) {
             if (i % 2 == 0) {
@@ -65,7 +66,7 @@ public class Game {
     }
 
     // Handles the "war" scenario when both players play cards of equal value
-    private void handleWar(Card card1, Card card2) {
+    public void handleWar(Card card1, Card card2) {
         System.out.println("War!");
         List<Card> warPile = new ArrayList<>();
         warPile.add(card1);
@@ -99,7 +100,7 @@ public class Game {
     }
 
     // Checks if the game is over
-    private boolean checkGameOver() {
+    public boolean checkGameOver() {
         if (!player1.hasDeck()) {
             System.out.println(player2.getName() + " wins the game!");
             return true;

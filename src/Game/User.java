@@ -91,7 +91,7 @@ public class User {
        return hand.size();
 
    }
-
+   // returns true if player is human
    public boolean isHuman() {
 
        return isHuman;
